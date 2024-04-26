@@ -18,15 +18,19 @@ avg_salary_by_industry_and_state <- survey |>
   arrange(avg_salary)
 
 # create scatterplot 
-
 ggplot(data = avg_salary_by_industry_and_state,
        mapping = aes(x = avg_salary,
                      y = industry, 
                      color = state)) +
   geom_point() +
   scale_x_continuous(limits = c(0, 150000),
-                     breaks = c(0, 25000, 50000, 75000, 10000, 125000, 150000)) +
+                     # add dollar sign formattin
+                     labels = scales::dollar,
+                     # replace c() with seq()
+                     breaks = seq(0, 150000, 25000)) +
   labs(title = "Average Salary by Industry and State",
        x = "Average Salary",
-       y = NULL) +
+       y = NULL,
+       # Change legend label
+       color = "State") +
   theme_minimal()
